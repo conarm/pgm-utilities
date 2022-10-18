@@ -1,0 +1,89 @@
+Modules
+
+-------------------------
+
+Module 1: errorHandling.c
+main(): In main() we will take an error code and print the corresponding error message before returning the code again. This is so that we don't have to repeatedly print the same messages, reusing code.
+
+Module 2: fileOperations.c
+This module will contain all of the different operations that we will perform on PGMStructs and the files themselves.
+initialisePGM(): This will take a PGMStruct and initialise its values to the defaults
+readFile(): This will read a file and set the PGMStructs values according to the data.
+writeFile(): This will take a PGMStruct and write it to the specified file.
+writea2b: This will take an ASCII PGMStruct and write it in binary format.
+writeb2a: This will take a binary PGMStruct and write it in ASCII format.
+reduceFile: This will take a PGMStruct and reduce it by the specified factor.
+
+Utility 1: pgmEcho.c
+
+Parameters: String inputFile, String outputFile
+
+main(): In main() we will validate the number of command line arguments, as well as initialise the PGMStruct (we will be using this to easily manipulate PGMs in a standardised way). Initialisation of struct values should be done externally since it will be performed repeatedly throughout the other utilities. Now setup is complete, echo() can be called and returned.
+
+echo(): In echo(), readFile() from the fileOperations module will be called, and any errors will be returned. Then the same will happen for writeFile(). Then the success message will be printed and 0 can be returned as long as no errors have been encountered.
+
+-------------------------
+
+Utility 2: pgmComp.c
+
+Parameters: String fileOne, String fileTwo
+
+main(): In main() we will validate the number of command line arguments, as well as initialise and validate 2 PGMStructs, one for each file. Initialisation of struct values should be performed externally. From there it will call identical() on the two inputs and print the appropriate message, returning 0 in the case that no errors are encountered.
+
+identical(): This will take in two PGMStruct parameters, and compare header attributes. At this point if the headers are identical it will then iterate through the pixels and return true if they all match, negative otherwise.
+
+-------------------------
+
+Utility 3: pgma2b.c
+
+Parameters: String fileOne, String fileTwo
+
+main(): In main() we will validate the number of command line arguments, as well as initialise and validate a PGMStruct, for the input file. Initialisation of struct values should be performed externally. If the input file is found not to be in ASCII, a miscellaneous error should be returned. We will then try to call a2b from fileOperations, returning the result.
+
+-------------------------
+
+Utility 4: pgmb2a.c
+
+Parameters: String fileOne, String fileTwo
+
+main(): In main() we will validate the number of command line arguments, as well as initialise and validate a PGMStruct, for the input file. Initialisation of struct values should be performed externally. If the input file is found not to be in binary, a miscellaneous error should be returned. We will then try to call b2a from fileOperations, returning the result.
+
+-------------------------
+
+Utility 5: pgmReduce.c
+
+Parameters: String inputFile, double reductionFactor, String outputFile
+
+main(): In main() we will validate the number of command line arguments, as well as initialise and validate a PGMStruct for the original file. Initialisation of struct values should be performed externally. From there it will call reduce() and return the result.
+
+reduce(): This will read the input into the PGMStruct, and call reduceFile in fileOperations to create the reduced output.
+
+-------------------------
+
+Utility 6: pgmTile.c
+
+Parameters: String inputFile, double tilingFactor, String outputFile<row><col>
+
+main(): This will validate the command line inputs, sending the relevant error codes to handleError if they are encountered.
+
+readFile(): This will read the file into a variable.
+
+tile(): This will split the file into separate tiles and output them as separate files.
+
+-------------------------
+
+Utility 7: pgmAssemble.c
+
+Parameters: String outputImage int width int height (int row, int col, String inputImage)...
+
+main(): This will validate the command line inputs, sending the relevant error codes to handleError if they are encountered. There are 3n+3 arguments of which the first three are:
+1) an output file name
+2) width of the output image
+3) height of the output image
+and the remainder are the layout: triples of:
+3i+1: row at which the subimage starts
+3i+2: column at which the subimage starts
+3i+3: the subimage to insert at that location
+We will need to process all of these inputs using len(argv).
+
+combine(): This will take the number of images and combine them all into one larger image, in the reverse of the pgmTile().

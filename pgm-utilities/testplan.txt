@@ -1,0 +1,7 @@
+Test Plan
+
+-------------------------
+
+I will be testing each PGM Utility program using a testscript written using bash. Bash allows the use of if statements, so I will be able to utilise these to compare the output of a certain shell command with the expected output. For example, usage messages will need to be checked for each utility. This is done by comparing the output from running a utility with no parameters with the expected utility message. It is also important to check against the expected return messages.
+
+To test functionality, I will create 'expected' files that should be output from functional utilities. For example I will make a PGM file, then another which should be output from pgmReducing the original. I will then compare using the diff command as well as pgmComp (provided it passed all of its tests). It is also important to test against unexpected inputs, so I will make files which should trigger errors, for example maxGrayValues above 255. These can then be tested with the utilities.

@@ -1,0 +1,1 @@
+int handle(int code, char* text);
