@@ -2,7 +2,7 @@
 
 A set of modules to manipulate .pgm image files in various ways 
 
-## Compilation
+## Building
 
 The makefile provided uses the gcc compiler with a number of flags, detailed in the comments. There are multiple targets, detailed below:
 
